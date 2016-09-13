@@ -1,12 +1,12 @@
 # InClass 1 - Classes and Introduction to Git
 
 ## Author
-
+Robert Cooley
 You fill this out
 
 ## Description
 
-This will be the description of the assignment
+Program will take input, create employee records and allows th euser to print the list.
 
 ### Notes
 
@@ -14,8 +14,8 @@ This will be any notes I add for you
 
 ## Outside Resources Used
 
-You fill this out
+None
 
 ## Known Problems, Issues, And/Or Errors in the Program
 
-You fill this out
+None
