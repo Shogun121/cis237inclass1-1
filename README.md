@@ -2,7 +2,6 @@
 
 ## Author
 Robert Cooley
-You fill this out
 
 ## Description
 
