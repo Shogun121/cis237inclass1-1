@@ -62,8 +62,13 @@ namespace cis237Inclass1
             //Instantiate a new UI class
             UserInterface ui = new UserInterface();
 
+            //staticUserInterface.GetUserInput();
+
             //Get the user input from the UI class
-            int choice = ui.GetUserInput();
+            //int choice = ui.GetUserInput();
+
+            //Using static class/method here, could use the one aboive but won't.
+            int choice = staticUserInterface.GetUserInput();
 
             //While the choice that they entered is not 2, we will loop to
             //continue to get the next choice of what they want to do.
