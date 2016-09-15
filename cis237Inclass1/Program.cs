@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace cis237Inclass1
 {
@@ -52,6 +53,12 @@ namespace cis237Inclass1
                 
             }
 
+            //Use the CSVProcessor method that we wrote into main to load the employees
+            //from the csv file.
+            ImportCSV("employees.csv",employees);
+
+
+
             //Instantiate a new UI class
             UserInterface ui = new UserInterface();
 
@@ -85,6 +92,72 @@ namespace cis237Inclass1
                 //Get the next choice from the user.
                 choice = ui.GetUserInput();
             }
+        }
+        static bool ImportCSV(string pathToCsvFile, Employee[] employees)   //Dependency injection
+        {
+            //Declare a variable for the stream reader. NOt going to instatiate yet.
+            StreamReader streamReader = null;
+
+            //Start a try since the path to the file could be incorrect, and thus throw an exception.
+            try
+            {
+                //Declare a string for each line we will read in.
+                string line;
+
+                //Instantiate the streamReader. If the path to file is incorrect it will throw an exception that we can catch.
+                streamReader = new StreamReader(pathToCsvFile);
+
+                //Setup a counter that we aren't using yet
+                int counter = 0;
+
+                //While there is a line to read, read the line and put it in the line var.
+                while((line=streamReader.ReadLine())!=null)
+                {
+                    //Call the process line method and send over the read in line,
+                    //the employees array(which is passed by reference automatically),
+                    //and the counter, which will be used as the index for the array.
+                    //We are also incrementing the counter after we send it in with the ++ operator.
+                    processLine(line,employees, counter++);
+                }
+                //All the reads are successful, return true.
+                return true;
+            }
+            catch(Exception ex)
+            {
+                //Output the exception string, and the stack trace.
+                // The stack trace is all of the method calls that lead to where the exception occured.
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine();
+                Console.WriteLine(ex.StackTrace);   //narrows down debugging
+
+                //Return false, reading failed.
+                return false;
+            }
+            //Used to ensure the code within it gets executed regardess of whether
+            //the try succeeds or the catch gets executed.
+            finally
+            {
+                //Check to make sure that the streamReader is actually instantiated before trying to call a method to it.
+                if(streamReader != null)
+                {
+                    //Close the streamReader because it is the right thing to do.
+                    streamReader.Close();
+                }
+            }   
+        }
+        static void processLine(string line, Employee[] employees, int index)
+        {
+            //declares a string array and assigns the spot line to it.
+            string[] parts = line.Split(',');
+
+            //Assign the parts to local variables that mean something.
+            string firstName = parts[0];
+            string lastName = parts[1];
+            decimal salary = decimal.Parse(parts[2]);
+
+            //Use the variables to instantiate a new Employee and assign it to the spot
+            //in the employees array indexed by the index that was passed in.
+            employees[index] = new Employee(firstName, lastName, salary);
         }
     }
 }
